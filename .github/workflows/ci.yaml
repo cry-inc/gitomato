@@ -1,0 +1,129 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  linux_x64:
+    name: Linux (x64)
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Update Rust
+      run: rustup toolchain install stable --profile minimal --no-self-update
+    - name: Install MUSL Toolchain
+      run: rustup target add x86_64-unknown-linux-musl
+    - name: Install MUSL dependencies
+      run: sudo apt-get install musl-tools
+    - name: Enable Rust Caching
+      uses: Swatinem/rust-cache@v2
+    - name: Release Build
+      run: cargo build --release --all --target x86_64-unknown-linux-musl
+    - name: Execute Tests
+      run: cargo test --release --all --target x86_64-unknown-linux-musl
+    - name: Run Clippy
+      run: cargo clippy --release --all --target x86_64-unknown-linux-musl --all-targets --all-features --locked -- -D warnings
+    - name: Check Formatting
+      run: cargo fmt --all -- --check
+    - uses: actions/upload-artifact@v4
+      with:
+        name: linux-x64
+        path: target/x86_64-unknown-linux-musl/release/gitomato
+  linux_arm64:
+    name: Linux (arm64)
+    runs-on: ubuntu-24.04-arm
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Update Rust
+      run: rustup toolchain install stable --profile minimal --no-self-update
+    - name: Install MUSL Toolchain
+      run: rustup target add aarch64-unknown-linux-musl
+    - name: Install MUSL dependencies
+      run: sudo apt-get install musl-tools
+    - name: Enable Rust Caching
+      uses: Swatinem/rust-cache@v2
+    - name: Release Build
+      run: cargo build --release --all --target aarch64-unknown-linux-musl
+    - name: Execute Tests
+      run: cargo test --release --all --target aarch64-unknown-linux-musl
+    - uses: actions/upload-artifact@v4
+      with:
+        name: linux-arm64
+        path: target/aarch64-unknown-linux-musl/release/gitomato
+  windows_x64:
+    name: Windows (x64)
+    runs-on: windows-2025
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install NASM
+      uses: ilammy/setup-nasm@v1
+    - name: Update Rust
+      run: rustup toolchain install stable --profile minimal --no-self-update
+    - name: Enable Rust Caching
+      uses: Swatinem/rust-cache@v2
+    - name: Release Build
+      run: cargo build --release --all
+    - name: Execute Tests
+      run: cargo test --release --all
+    - uses: actions/upload-artifact@v4
+      with:
+        name: windows-x64
+        path: target/release/gitomato.exe
+  windows_arm64:
+    name: Windows (arm64)
+    runs-on: windows-11-arm
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Update Rust
+      run: rustup toolchain install stable --profile minimal --no-self-update
+    - name: Enable Rust Caching
+      uses: Swatinem/rust-cache@v2
+    - name: Release Build
+      run: cargo build --release --all
+    - name: Execute Tests
+      run: cargo test --release --all
+    - uses: actions/upload-artifact@v4
+      with:
+        name: windows-arm64
+        path: target/release/gitomato.exe
+  mac_x64:
+    name: Mac (x64)
+    runs-on: macos-15
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Update Rust
+      run: rustup toolchain install stable --profile minimal --no-self-update
+    - name: Install x64 target
+      run: rustup target add x86_64-apple-darwin
+    - name: Enable Rust Caching
+      uses: Swatinem/rust-cache@v2
+    - name: Release Build
+      run: cargo build --release --all --target x86_64-apple-darwin
+    - name: Execute Tests
+      run: cargo test --release --all --target x86_64-apple-darwin
+    - uses: actions/upload-artifact@v4
+      with:
+        name: mac-x64
+        path: target/x86_64-apple-darwin/release/gitomato
+  mac_arm64:
+    name: Mac (arm64)
+    runs-on: macos-15
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Update Rust
+      run: rustup toolchain install stable --profile minimal --no-self-update
+    - name: Enable Rust Caching
+      uses: Swatinem/rust-cache@v2
+    - name: Release Build
+      run: cargo build --release --all --target aarch64-apple-darwin
+    - name: Execute Tests
+      run: cargo test --release --all --target aarch64-apple-darwin
+    - uses: actions/upload-artifact@v4
+      with:
+        name: mac-arm64
+        path: target/aarch64-apple-darwin/release/gitomato
