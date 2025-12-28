@@ -157,3 +157,36 @@ jobs:
           --tag ghcr.io/${{github.actor}}/gitomato:$(cut -d '.' -f 1,2 <<< "${{github.ref_name}}") \
           --tag ghcr.io/${{github.actor}}/gitomato:${{github.ref_name}} .
         docker run --rm ghcr.io/${{github.actor}}/gitomato:latest ./gitomato --version
+  release:
+    name: Release
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [linux_amd64, linux_arm64, windows_amd64, windows_arm64, mac_amd64, mac_arm64, docker_linux]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+    - name: Pack Artifacts for Release
+      run: |
+        zip -r windows-amd64.zip windows-amd64
+        zip -r windows-arm64.zip windows-arm64
+        zip -r linux-amd64.zip linux-amd64
+        zip -r linux-arm64.zip linux-arm64
+        zip -r mac-amd64.zip mac-amd64
+        zip -r mac-arm64.zip mac-arm64
+    - name: Publish Release
+      uses: softprops/action-gh-release@v2
+      with:
+        body: Release created automatically from git tag ${{github.ref_name}}, see CHANGELOG.md for more details.
+        files: |
+          CHANGELOG.md
+          LICENSE
+          windows-amd64.zip
+          windows-arm64.zip
+          linux-amd64.zip
+          linux-arm64.zip
+          mac-amd64.zip
+          mac-arm64.zip
