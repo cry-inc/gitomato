@@ -12,6 +12,7 @@ It does **not** support scripting or automatic transformations.
 ## Features
 - [x] Serve one or more pages from different git repositories.
 - [x] Select a specific branch (or just use the default branch).
+- [x] Very easy to configure and deploy.
 - [x] Uses a shallow clone to save disk space and bandwidth.
 - [x] All files are kept in memory to avoid disk IO when serving pages.
 - [x] Can also serve only a subfolder of the repository.
@@ -21,6 +22,9 @@ It does **not** support scripting or automatic transformations.
 - [x] Supports client-side caching using ETag based on git file hashes.
 - [x] Compiled to a single statically linked executable.
 - [x] Very small Docker container (less than 10 MB).
+- [x] Prebuilt binaries and Docker images.
+- [x] Runs out of the box on a Raspberry Pi.
+- [x] Implemented Rust (memory safe, fast, easy to build).
 
 ## Configuration
 See `gitomato --help` for all global parameters.  
