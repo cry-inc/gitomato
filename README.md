@@ -1,19 +1,21 @@
 # gitomato
-Small and simple HTTP server for static webpages stored in git repositories.  
-The pages will be automatic updated when the git repo changes.  
+Simple and lightweight HTTP server for static web pages from git repositories with automated updates.
+Ideal for small and self-hosted scenarios.
+
 It does **not** support scripting or automatic transformations.
 
 ## Features
-[x] Serve one or more pages from different git repositories.  
-[x] You can select a specific branch or use the default one.  
-[x] Uses a shallow clone to save disk space and bandwidth.  
-[x] All files are kept in memory to avoid disk IO when service pages.  
-[x] Can serve only selected subfolder os the repository.  
-[x] Update pages via regular update intervals or use web hooks.  
-[x] Can also generate directory index pages (default is off).  
-[x] Supports Client-side caching using ETag based on file hash.  
-[x] Compiled to a single statically linked executable.  
-[x] Extremely small Docker container (less than 10 MB).  
+- [x] Serve one or more pages from different git repositories.
+- [x] Select a specific branch (or just use the default branch).
+- [x] Uses a shallow clone to save disk space and bandwidth.
+- [x] All files are kept in memory to avoid disk IO when serving pages.
+- [x] Can also serve only a subfolder of the repository.
+- [x] Update pages automatically via regular update intervals.
+- [x] Update pages instanly using optional web hooks.
+- [x] Can also serve directory index pages (default is off).
+- [x] Supports client-side caching using ETag based on git file hashes.
+- [x] Compiled to a single statically linked executable.
+- [x] Very small Docker container (less than 10 MB).
 
 ## Configuration
 See `gitomato --help` for all global parameters.  
@@ -25,7 +27,7 @@ The simplest possible example to configure gitomato is this:
 ### Docker
 You can also use the provided Docker image to deploy gitomato.
 When using Docker, the recommended way of configuration are environment variables.
-Here a more complex example with two pages:
+Here an example with two separate pages:
 ```
 docker run --rm -p 8080:8080 \
     -e PAGE0_GIT_REPO="https://user:pass@server.org/my-repo.git" \
@@ -42,12 +44,12 @@ docker run --rm -p 8080:8080 \
 
 ### Automatic Updates
 There are two ways to update your pages when the git repository changes.
-The default option are automatic update intervals.
-The server will check the repos in configured intervals for any updates.
+The default option is an automatic update interval.
+The server will check the git repos in configured intervals for any changes.
 If you run the default configuration, the update check interval is 300 seconds.
 You can change this using the global configuration option `--interval` or the environment variable `INTERVAL`.
 
-The second option is an web hook that can be called by your [git forge](https://en.wikipedia.org/wiki/Forge_(software)) whenever new data is pushed.
+The second option is an web hook that can be called by your [git forge](https://en.wikipedia.org/wiki/Forge_(software)) whenever new data is pushed to git.
 This will result in immediate updates, but requires extra setup.
 You have to enable the update secret for your page, for example using `--page-update-secret=123`.
 This enables a HTTP GET endpoint below your page root at `/update/123`.
