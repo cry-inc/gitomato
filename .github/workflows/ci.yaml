@@ -3,8 +3,8 @@ on: [push, pull_request]
 permissions:
   contents: read
 jobs:
-  linux_x64:
-    name: Linux (x64)
+  linux_amd64:
+    name: Linux (amd64)
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
@@ -27,7 +27,7 @@ jobs:
       run: cargo fmt --all -- --check
     - uses: actions/upload-artifact@v4
       with:
-        name: linux-x64
+        name: linux-amd64
         path: target/x86_64-unknown-linux-musl/release/gitomato
   linux_arm64:
     name: Linux (arm64)
@@ -51,8 +51,8 @@ jobs:
       with:
         name: linux-arm64
         path: target/aarch64-unknown-linux-musl/release/gitomato
-  windows_x64:
-    name: Windows (x64)
+  windows_amd64:
+    name: Windows (amd64)
     runs-on: windows-2025
     steps:
     - name: Checkout
@@ -69,7 +69,7 @@ jobs:
       run: cargo test --release --all
     - uses: actions/upload-artifact@v4
       with:
-        name: windows-x64
+        name: windows-amd64
         path: target/release/gitomato.exe
   windows_arm64:
     name: Windows (arm64)
@@ -89,8 +89,8 @@ jobs:
       with:
         name: windows-arm64
         path: target/release/gitomato.exe
-  mac_x64:
-    name: Mac (x64)
+  mac_amd64:
+    name: Mac (amd64)
     runs-on: macos-15
     steps:
     - name: Checkout
@@ -107,7 +107,7 @@ jobs:
       run: cargo test --release --all --target x86_64-apple-darwin
     - uses: actions/upload-artifact@v4
       with:
-        name: mac-x64
+        name: mac-amd64
         path: target/x86_64-apple-darwin/release/gitomato
   mac_arm64:
     name: Mac (arm64)
@@ -128,7 +128,7 @@ jobs:
         name: mac-arm64
         path: target/aarch64-apple-darwin/release/gitomato
   docker_linux:
-    name: Docker Linux
+    name: Docker Linux (amd64 and arm64)
     runs-on: ubuntu-24.04
     permissions:
       contents: read
