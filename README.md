@@ -5,7 +5,7 @@
 [![Dependencies](https://deps.rs/repo/github/cry-inc/gitomato/status.svg)](https://deps.rs/repo/github/cry-inc/gitomato)
 
 Simple and lightweight HTTP server for static web pages from git repositories with automated updates.
-Ideal for small and self-hosted scenarios.
+Ideal for small self-hosted web apps and similar pages.
 
 It does **not** support scripting or automatic transformations.
 
@@ -26,7 +26,7 @@ It does **not** support scripting or automatic transformations.
 See `gitomato --help` for all global parameters.  
 Run `gitomato` without any arguments for an page setup tutorial.
 
-The simplest possible example to configure gitomato is this:
+The simplest possible configuration of gitomato is this:
 `gitomato --page-git-repo=https://git.server.org/my-repo.git`
 
 ### Docker
@@ -60,7 +60,11 @@ You have to enable the update secret for your page, for example using `--page-up
 This enables a HTTP GET endpoint below your page root at `/update/123`.
 You can then use this secret URL to set up the web hook in your git forge.
 
-# Why?
+### HTTPS
+This application only exposes an HTTP server. Support for HTTPS is not included.
+Its recommended to use an reverse proxy like [Caddy](https://caddyserver.com/) in front of this application to add HTTPS support.
+
+## Why?
 Why not just use GitHub Pages?
 
 I wanted a solution that works for any git repository accessible over HTTP(S).
