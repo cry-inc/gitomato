@@ -1,4 +1,9 @@
 # gitomato
+[![Build Status](https://github.com/cry-inc/gitomato/workflows/CI/badge.svg)](https://github.com/cry-inc/gitomato/actions)
+[![No Unsafe](https://img.shields.io/badge/unsafe-forbidden-brightgreen.svg)](https://doc.rust-lang.org/nomicon/meet-safe-and-unsafe.html)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Dependencies](https://deps.rs/repo/github/cry-inc/gitomato/status.svg)](https://deps.rs/repo/github/cry-inc/gitomato)
+
 Simple and lightweight HTTP server for static web pages from git repositories with automated updates.
 Ideal for small and self-hosted scenarios.
 
