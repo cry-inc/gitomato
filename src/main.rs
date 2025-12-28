@@ -1,3 +1,5 @@
+#![forbid(unsafe_code)]
+
 mod config;
 mod git;
 mod http;
