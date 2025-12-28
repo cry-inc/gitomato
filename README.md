@@ -28,9 +28,9 @@ It does **not** support scripting or automatic transformations.
 
 ## Configuration
 See `gitomato --help` for all global parameters.  
-Run `gitomato` without any arguments for an page setup tutorial.
+Run `gitomato` without any arguments for a quick start guide.
 
-The simplest possible configuration of gitomato is this:
+The simplest possible configuration of gitomato is this:  
 `gitomato --page-git-repo=https://git.server.org/my-repo.git`
 
 ### Docker
