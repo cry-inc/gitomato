@@ -30,9 +30,9 @@ The simplest possible configuration of gitomato is this:
 `gitomato --page-git-repo=https://git.server.org/my-repo.git`
 
 ### Docker
-You can also use the provided Docker image to deploy gitomato.
+You can also use the pre-built Docker images to deploy gitomato.
 When using Docker, the recommended way of configuration are environment variables.
-Here an example with two separate pages:
+Here an example configuration with two separate pages:
 ```
 docker run --rm -p 8080:8080 \
     -e PAGE0_GIT_REPO="https://user:pass@server.org/my-repo.git" \
@@ -46,6 +46,14 @@ docker run --rm -p 8080:8080 \
     -e PAGE1_PREFIX="/page1/" \
     ghcr.io/cry-inc/gitomato
 ```
+
+#### Available Docker Tags
+The following tags are available:
+* `latest` (latest stable release)
+* `develop` (last development build from main branch)
+* `<major>`, e.g. `1` (latest stable release from that major version)
+* `<major>.<minor>`, e.g. `1.1` (latest stable release from that minor version)
+* `<major>.<minor>.<patch>`, e.g. `1.1.0` (a specific release)
 
 ### Automatic Updates
 There are two ways to update your pages when the git repository changes.
