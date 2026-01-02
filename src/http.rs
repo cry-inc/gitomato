@@ -58,9 +58,25 @@ pub async fn start_server(config: Arc<Configuration>, pages: Arc<Pages>) -> Resu
 }
 
 async fn shutdown_signal() {
-    ctrl_c()
-        .await
-        .expect("failed to install CTRL+C signal handler");
+    let ctrlc = async {
+        ctrl_c().await.expect("Failed to install CTRL+C handler");
+    };
+
+    #[cfg(unix)]
+    let terminate = async {
+        signal::unix::signal(signal::unix::SignalKind::terminate())
+            .expect("Failed to install signal handler")
+            .recv()
+            .await;
+    };
+
+    #[cfg(not(unix))]
+    let terminate = std::future::pending::<()>();
+
+    tokio::select! {
+        _ = ctrlc => {},
+        _ = terminate => {},
+    }
 }
 
 async fn root_handler(
