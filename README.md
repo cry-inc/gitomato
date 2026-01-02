@@ -5,9 +5,9 @@
 [![Dependencies](https://deps.rs/repo/github/cry-inc/gitomato/status.svg)](https://deps.rs/repo/github/cry-inc/gitomato)
 
 Simple and lightweight HTTP server for static web pages from git repositories with automated updates.
-Ideal for small self-hosted web apps and similar pages.
+Create your own "GitHub Pages" for self-hosted web apps and similar use cases!
 
-It does **not** support scripting or automatic transformations.
+It does **not** support scripting or automatic transformations, every file from the git repository is served as-is.
 
 ## Features
 - [x] Serve one or more pages from different git repositories.
@@ -21,10 +21,10 @@ It does **not** support scripting or automatic transformations.
 - [x] Can also serve directory index pages (default is off).
 - [x] Supports client-side caching using ETag based on git file hashes.
 - [x] Compiled to a single statically linked executable.
-- [x] Very small Docker container (less than 10 MB).
+- [x] Very small Docker image (less than 10 MB).
 - [x] Prebuilt binaries and Docker images.
 - [x] Runs out of the box on a Raspberry Pi.
-- [x] Implemented Rust (memory safe, fast, easy to build).
+- [x] Implemented in Rust (memory safe, fast, easy to build).
 
 ## Configuration
 See `gitomato --help` for all global parameters.  
@@ -81,4 +81,4 @@ Why not just use GitHub Pages?
 
 I wanted a solution that works for any git repository accessible over HTTP(S).
 And I wanted to be able to selfhost all parts.
-Additionally, other existing solutions like [pages-server](https://codeberg.org/Codeberg/pages-server) or [git-pages](https://codeberg.org/git-pages/git-pages) are too big and complex for my use case.
+Additionally, other existing solutions like [GitLab Pages](https://docs.gitlab.com/user/project/pages/), [pages-server](https://codeberg.org/Codeberg/pages-server) or [git-pages](https://codeberg.org/git-pages/git-pages) are too big and complex for my own use cases.
