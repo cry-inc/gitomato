@@ -12,8 +12,13 @@ RUN cargo build --release
 # Remove debug symbols
 RUN strip /usr/src/target/release/gitomato
 
+# Prepare CA root certificates
+RUN mkdir -p /prep/etc/ssl/certs
+RUN cp /etc/ssl/certs/ca-certificates.crt /prep/etc/ssl/certs/ca-certificates.crt 
+
 # Build final minimal image with only the binary
 FROM scratch
+COPY --from=builder /prep /
 COPY --from=builder /usr/src/target/release/gitomato /
 EXPOSE 8080
 STOPSIGNAL SIGINT
