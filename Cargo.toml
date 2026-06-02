@@ -13,4 +13,4 @@ hyper = { version = "1", default-features = false, features = ["server", "http1"
 http-body-util = { version = "0.1", default-features = false }
 hyper-util = { version = "0.1", default-features = false, features = ["tokio"] }
 gix-hash = {version = "0.25", default-features = false, features = ["sha1"] }
-gix = { version = "0.83", default-features = false, features = ["blocking-http-transport-reqwest-rust-tls"] }
+gix = { version = "0.84", default-features = false, features = ["blocking-http-transport-reqwest-rust-tls"] }
