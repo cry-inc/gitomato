@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.5] - 2026-08-15
+* Updated Rust dependencies
+
 ## [1.0.4] - 2026-06-02
 * Updated Rust dependencies
 
